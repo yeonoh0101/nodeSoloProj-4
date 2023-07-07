@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/auth-middleware.js"); // "../midd
 const { Users, Posts } = require("../models");
 const { Op } = require("sequelize");
 
-// // 전체 게시글 조회 API
+// 전체 게시글 조회 API
 router.get("/posts", async (req, res) => {
   // "/posts" 경로에 대한 GET 요청을 보낸다
   try {
@@ -15,7 +15,7 @@ router.get("/posts", async (req, res) => {
   }
 });
 
-// // 게시글 작성 API
+// 게시글 작성 API
 router.post("/posts", authMiddleware, async (req, res) => {
   // "/posts" 경로에 대한 POST 요청을 보낸다.
   const { title, content } = req.body;
@@ -35,7 +35,7 @@ router.post("/posts", authMiddleware, async (req, res) => {
   }
 });
 
-// // 게시글 상세 조회 API
+// 게시글 상세 조회 API
 router.get("/posts/:postId", async (req, res) => {
   // "/posts/:_id" 경로에 대한 GET 요청을 보낸다.
   const { postId } = req.params;
@@ -102,7 +102,7 @@ router.patch("/posts/:postId", authMiddleware, async (req, res) => {
   }
 });
 
-// // 게시글 삭제 API
+// 게시글 삭제 API
 router.delete("/posts/:postId", authMiddleware, async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
