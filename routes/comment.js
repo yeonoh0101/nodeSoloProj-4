@@ -69,6 +69,14 @@ router.patch(
         return res.status(404).json({ error: "댓글이 존재하지 않습니다." });
       }
 
+      if (!content) {
+        // content가 없을 경우
+        return res.status(400).json({
+          success: false,
+          errorMessage: "댓글 내용을 입력해주세요.",
+        }); // HTTP 상태 코드를 400으로 알리고 에러 메시지를 JSON 형식으로 응답한다.
+      }
+
       // 로그인 한 userId와 게시글 수정하려는 userId값이 같지 않다면
       if (user.userId !== existingComment.UserId) {
         return res.status(403).json({ error: "접근이 허용되지 않습니다." });
