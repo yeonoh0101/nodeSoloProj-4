@@ -38,7 +38,6 @@ router.post("/posts", authMiddleware, async (req, res) => {
 
     res.status(201).json({ posts: "게시글 작성에 성공하였습니다." });
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "게시글 작성에 실패했습니다." });
   }
 });

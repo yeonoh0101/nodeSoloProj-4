@@ -46,7 +46,6 @@ router.put("/posts/:postId/like", authMiddleware, async (req, res) => {
         .json({ message: "게시글의 좋아요를 취소하였습니다." });
     }
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ errorMessage: "오류가 발생하였습니다." });
   }
 });
@@ -76,7 +75,6 @@ router.get("/likes/posts", authMiddleware, async (req, res) => {
 
     res.status(200).json({ posts: likedPosts });
   } catch (error) {
-    console.log(error);
     return res
       .status(400)
       .json({ errorMessage: "좋아요 게시글 조회에 실패하였습니다." });

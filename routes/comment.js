@@ -41,7 +41,6 @@ router.post("/posts/:postId/comments", authMiddleware, async (req, res) => {
 
     res.status(201).json({ comments: "댓글을 작성하였습니다." }); // HTTP 상태 코드를 201로 알리고 댓글 작성 성공 메세지를 JSON 형식으로 응답한다.
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "댓글 작성에 실패했습니다." });
   }
 });
@@ -92,7 +91,6 @@ router.patch(
       await comments.update({ content }); // Comments.updateOne() 메소드를 사용하여 commentId값을 기준으로 댓글을 수정한다. $set 연산자를 사용하여 content를 업데이트한다.
       res.status(200).json({ data: "댓글 수정에 성공했습니다." });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ error: "댓글 수정에 실패하였습니다." }); // 예외 처리를 하는데 HTTP 상태 코드를 404로 알리고 errorMessage를 json형태로 받는다.
     }
   }
