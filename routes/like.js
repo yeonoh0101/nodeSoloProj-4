@@ -4,7 +4,7 @@ const authMiddleware = require("../middlewares/auth-middleware.js");
 const { Users, Posts, Likes } = require("../models");
 
 // 좋아요 추가, 취소 API
-router.patch("/posts/:postId/like", authMiddleware, async (req, res) => {
+router.put("/posts/:postId/like", authMiddleware, async (req, res) => {
   const { postId } = req.params;
   const { user } = res.locals;
 
