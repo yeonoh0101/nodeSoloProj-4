@@ -52,29 +52,6 @@ router.patch("/posts/:postId/like", authMiddleware, async (req, res) => {
 });
 
 // 좋아요 게시글 조회 API
-// router.get("/likes/posts", authMiddleware, async (req, res) => {
-//   const { userId } = res.locals;
-//   try {
-//     // 사용자가 좋아요한 게시물 조회
-//     const likedPosts = await Posts.findAll({
-//       order: [["likes", "desc"]],
-//       attributes: ["title", "likes"],
-//       include: [
-//         {
-//           model: Users,
-//           attributes: ["nickname"],
-//         },
-//       ],
-//     });
-//     res.status(200).json({ posts: likedPosts });
-//   } catch (error) {
-//     console.log(error);
-//     return res
-//       .status(400)
-//       .json({ errorMessage: "좋아요 게시글 조회에 실패하였습니다." });
-//   }
-// });
-
 router.get("/likes/posts", authMiddleware, async (req, res) => {
   const { user } = res.locals;
   try {
