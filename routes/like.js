@@ -81,4 +81,4 @@ router.get("/likes/posts", authMiddleware, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router; // router 객체를 모듈로 내보낸다.

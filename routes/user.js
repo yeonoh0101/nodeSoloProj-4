@@ -1,6 +1,6 @@
 const express = require("express"); // express 모듈을 가져온다.
 const router = express.Router(); // router 객체를 생성한다.
-const authMiddleware = require("../middlewares/auth-middleware.js"); // "../middlewares/auth-middleware.js" 파일에서 미들웨어를 가져온다.
+const authMiddleware = require("../middlewares/auth-middleware.js"); // 미들웨어를 가져온다.
 const { Users } = require("../models");
 
 // 내 정보 조회 API

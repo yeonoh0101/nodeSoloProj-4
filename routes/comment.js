@@ -1,13 +1,13 @@
 const express = require("express"); // express module을 express 변수에 할당
 const router = express.Router(); // express.Router()로 라우터 객체 생성
 const authMiddleware = require("../middlewares/auth-middleware.js"); // "../middlewares/auth-middleware.js" 파일에서 인증 미들웨어를 가져온다.
-const { Users, Posts, Comments } = require("../models");
+const { Posts, Comments } = require("../models");
 const { Op } = require("sequelize");
 
 // 사용자의 전체 댓글 조회 API
 router.get("/posts/:postId/comments", async (req, res) => {
   try {
-    const comments = await Comments.findAll({ order: [["createdAt", "desc"]] }); // createdAt을 기준으로 내림차순으로 정렬한다(최신순)
+    const comments = await Comments.findAll({ order: [["createdAt", "desc"]] }); // Comments 모델에서 모든 댓글을 내림차순으로 정렬하여 조회한다.
     res.json({ data: comments }); // JSON 형식으로 모든 댓글을 응답한다.
   } catch (error) {
     res.status(404).json({ error: "댓글 조회에 실패하였습니다." }); // HTTP 상태 코드를 404로 알리고 errorMessage를 json형식으로 응답한다.
@@ -117,6 +117,7 @@ router.delete(
         return res.status(404).json({ error: "댓글이 존재하지 않습니다." });
       }
 
+      // 로그인한 사용자의 userId와 댓글 작성자의 userId가 다른 경우 400 상태 코드와 에러 메시지를 JSON 형식으로 응답한다.
       if (user.userId !== existingComment.UserId) {
         return res.status(400).json({ error: "접근이 허용되지 않습니다." });
       }
@@ -124,7 +125,7 @@ router.delete(
       // 댓글을 삭제한다.
       await Comments.destroy({
         where: {
-          [Op.and]: [{ postId }, { commentId }],
+          [Op.and]: [{ postId }, { commentId }], // commentId와 postId를 기준으로 삭제한다.
         },
       });
 
@@ -135,4 +136,4 @@ router.delete(
   }
 );
 
-module.exports = router;
+module.exports = router; // router 객체를 모듈로 내보낸다.
