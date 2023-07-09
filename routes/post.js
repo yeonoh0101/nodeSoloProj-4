@@ -8,7 +8,15 @@ const { Op } = require("sequelize");
 router.get("/posts", async (req, res) => {
   // "/posts" 경로에 대한 GET 요청을 보낸다
   try {
-    const posts = await Posts.findAll({ order: [["createdAt", "desc"]] });
+    const posts = await Posts.findAll({
+      order: [["createdAt", "desc"]],
+      include: [
+        {
+          model: Users,
+          attributes: ["nickname"],
+        },
+      ],
+    });
     res.json({ data: posts }); // 조회된 게시글을 JSON 형식으로 응답한다
   } catch (error) {
     res.status(400).json({ error: "게시글 조회에 실패했습니다." }); // 오류가 발생한다면 json형식으로 error메세지를 응답한다.
@@ -41,7 +49,15 @@ router.get("/posts/:postId", async (req, res) => {
   const { postId } = req.params;
 
   try {
-    const posts = await Posts.findOne({ where: { postId } }); // _id에 해당하는 게시물을 조회한다
+    const posts = await Posts.findOne({
+      where: { postId },
+      include: [
+        {
+          model: Users,
+          attributes: ["nickname"],
+        },
+      ],
+    }); // _id에 해당하는 게시물을 조회한다
     if (!posts) {
       // 게시글이 없는경우
       return res
