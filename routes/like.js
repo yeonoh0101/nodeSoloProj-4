@@ -88,7 +88,7 @@ router.get("/likes/posts", authMiddleware, async (req, res) => {
     const likedPosts = await Posts.findAll({
       where: { postId: likedPostIds.map((item) => item.PostId) },
       order: [["likes", "DESC"]],
-      attributes: ["title", "likes"],
+      attributes: ["title", "likes", "createdAt"],
       include: [
         {
           model: Users,
