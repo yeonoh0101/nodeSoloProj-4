@@ -64,17 +64,25 @@ router.get("/likes/posts", authMiddleware, async (req, res) => {
     const likedPosts = await Posts.findAll({
       where: { postId: likedPostIds.map((item) => item.PostId) },
       order: [["likes", "DESC"]],
-      attributes: ["title", "likes", "createdAt"],
       include: [
         {
           model: Users,
           attributes: ["nickname"],
+          as: "User",
         },
       ],
     });
 
-    res.status(200).json({ posts: likedPosts });
+    const allLikesPosts = likedPosts.map((post) => ({
+      nickname: post.User.nickname,
+      title: post.title,
+      likes: post.likes,
+      createdAt: post.createdAt,
+    }));
+
+    res.status(200).json({ posts: allLikesPosts });
   } catch (error) {
+    console.log(error);
     return res
       .status(400)
       .json({ errorMessage: "좋아요 게시글 조회에 실패하였습니다." });
