@@ -90,7 +90,6 @@ router.get("/posts/:postId", async (req, res) => {
     } // HTTP 상태 코드를 404로 알리고 json형태로 errorMessage를 받는다.
     res.json({ data: onePost }); // 조회된 게시물을 JSON 형식으로 응답해준다
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "게시글 조회에 실패했습니다." });
   } // 오류가 발생한다면 json형식으로 error메세지를 보여준다.
 });
