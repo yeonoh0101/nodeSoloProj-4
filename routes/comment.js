@@ -1,8 +1,8 @@
 const express = require("express"); // express module을 express 변수에 할당
 const router = express.Router(); // express.Router()로 라우터 객체 생성
-const authMiddleware = require("../middlewares/auth-middleware.js"); // "../middlewares/auth-middleware.js" 파일에서 인증 미들웨어를 가져온다.
+const authMiddleware = require("../middlewares/auth-middleware.js"); // 인증 미들웨어를 가져온다.
 const { Posts, Comments } = require("../models");
-const { Op } = require("sequelize");
+const { Op } = require("sequelize"); // Sequelize에서 제공하는 Qp 객체를 가져온다.
 
 // 사용자의 전체 댓글 조회 API
 router.get("/posts/:postId/comments", async (req, res) => {
@@ -68,8 +68,8 @@ router.patch(
         return res.status(404).json({ error: "댓글이 존재하지 않습니다." });
       }
 
+      // content가 없을 경우
       if (!content) {
-        // content가 없을 경우
         return res.status(400).json({
           success: false,
           errorMessage: "댓글 내용을 입력해주세요.",
@@ -88,7 +88,7 @@ router.patch(
         return res.status(404).json({ error: "댓글이 존재하지 않습니다." }); // HTTP 상태 코드를 404로 알리고 json형태로 errorMessage를 받는다.
       }
 
-      await comments.update({ content }); // Comments.updateOne() 메소드를 사용하여 commentId값을 기준으로 댓글을 수정한다. $set 연산자를 사용하여 content를 업데이트한다.
+      await comments.update({ content }); // content를 없데이트한다.
       res.status(200).json({ data: "댓글 수정에 성공했습니다." });
     } catch (error) {
       res.status(400).json({ error: "댓글 수정에 실패하였습니다." }); // 예외 처리를 하는데 HTTP 상태 코드를 404로 알리고 errorMessage를 json형태로 받는다.
